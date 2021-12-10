@@ -10,7 +10,7 @@ namespace bsi_push_data_into_api
         private static Timer _timer = null;
         static void Main(string[] args)
         {
-            _timer = new Timer(TimerCallback, null, 0, (10 * 1000));
+            _timer = new Timer(TimerCallback, null, 0, (120 * 1000));
             Console.ReadLine();
         }
 
