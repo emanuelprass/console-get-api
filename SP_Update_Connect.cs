@@ -19,8 +19,6 @@ namespace bsi_push_data_into_api
         {
             using (sqlConn = new SqlConnection(connString))
             {
-                Console.WriteLine(Environment.NewLine + "Updating data in TransactionLog...");
-
                 SqlCommand sqlCmd = new SqlCommand("dbo.sp_UpdateTransactionLog", sqlConn);
 
                 sqlCmd.Parameters.AddWithValue("@SAPCustomerID", SqlDbType.NVarChar).Value = custId;
@@ -32,7 +30,6 @@ namespace bsi_push_data_into_api
                 sqlCmd.CommandType = CommandType.StoredProcedure;
 
                 sqlCmd.ExecuteNonQuery();
-                Console.WriteLine(Environment.NewLine + "The data has been successfully updated." + Environment.NewLine);
                 sqlConn.Close();
             }
         }

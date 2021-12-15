@@ -10,7 +10,7 @@ namespace bsi_push_data_into_api
 {
     internal class Endpoint_Post
     {
-        public static void EndpointPost(IDataRecord dataRecord)
+        public static async Task EndpointPost(IDataRecord dataRecord)
         {
             Console.WriteLine(Environment.NewLine + "Requesting to POST to endpoint..." + Environment.NewLine);
 
@@ -25,11 +25,10 @@ namespace bsi_push_data_into_api
             client.Headers["Content-type"] = "application/json";
             client.Encoding = Encoding.UTF8;
             client.Headers.Add("Authorization:Bearer " + token);
-            string json = client.UploadString(endpoint, input);
+             string json = await Task.Run(() => client.UploadString(endpoint, input));
 
-            Console.WriteLine(Environment.NewLine + "Posting SAPCustomerID " + dataRecord[1] + " with sequence " + dataRecord[2] + "...");
+            Console.WriteLine($"Posting SAPCustomerID {dataRecord[1]} with sequence {dataRecord[2]} ...");
             Console.WriteLine(Environment.NewLine + json);
-
             
 
         }
