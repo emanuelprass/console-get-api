@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Net;
 
 namespace bsi_push_data_into_api
 {
@@ -26,11 +27,12 @@ namespace bsi_push_data_into_api
 
                 using (SqlDataReader sqlDR = await sqlCmd.ExecuteReaderAsync())
                 {
-                    try
+                    while (sqlDR.Read())
+					{
+                        try
                         {
                             await Endpoint_Post.EndpointPost((IDataRecord)sqlDR);
                             await SP_Update_Exec.SPUpdateExec((IDataRecord)sqlDR);
-
                         }
                         catch (WebException ex)
                         {
@@ -59,15 +61,13 @@ namespace bsi_push_data_into_api
                             {
                                 Console.WriteLine("Other Exception");
                             }
-
                         }
-                    sqlDR.Close();                
+                    }
+                    sqlDR.Close();
                 }
-                
-                Console.WriteLine(Environment.NewLine + "All valid data has been posted to endpoint.");
-                Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("=", 50)) + Environment.NewLine);
             }
+            Console.WriteLine(Environment.NewLine + "All valid data has been posted to endpoint.");
+            Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("=", 50)) + Environment.NewLine);
         }
-
     }
 }

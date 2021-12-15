@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Miftahul\\source\\repos\\console-get-api\\bsi_push_data_into_api.csproj": {}
+    "D:\\work-spaces\\refactory\\bsi-queue-transaction-log\\console-get-api\\bsi_push_data_into_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Miftahul\\source\\repos\\console-get-api\\bsi_push_data_into_api.csproj": {
+    "D:\\work-spaces\\refactory\\bsi-queue-transaction-log\\console-get-api\\bsi_push_data_into_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miftahul\\source\\repos\\console-get-api\\bsi_push_data_into_api.csproj",
+        "projectUniqueName": "D:\\work-spaces\\refactory\\bsi-queue-transaction-log\\console-get-api\\bsi_push_data_into_api.csproj",
         "projectName": "bsi_push_data_into_api",
-        "projectPath": "C:\\Users\\Miftahul\\source\\repos\\console-get-api\\bsi_push_data_into_api.csproj",
-        "packagesPath": "C:\\Users\\Miftahul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Miftahul\\source\\repos\\console-get-api\\obj\\",
+        "projectPath": "D:\\work-spaces\\refactory\\bsi-queue-transaction-log\\console-get-api\\bsi_push_data_into_api.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "D:\\work-spaces\\refactory\\bsi-queue-transaction-log\\console-get-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Miftahul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
