@@ -11,22 +11,25 @@ namespace bsi_push_data_into_api
         public static async Task Update(DataTable data)
         {
 			Queue_Model param = new Queue_Model();
-            
-            for(int counter = 0; counter <= data.Rows.Count; counter ++)
+
+			try
 			{
-                param.CustomerID = data.Rows[counter]["SAPCustomerID"].ToString();
-                param.Sequence = Convert.ToInt16(data.Rows[counter]["Sequence"]);
-                param.Status = 2;
-                param.Return = 1;
+                for (int counter = 0; counter < data.Rows.Count; counter++)
+                {
+                    param.CustomerID = data.Rows[counter]["SAPCustomerID"].ToString();
+                    param.Sequence = Convert.ToInt16(data.Rows[counter]["Sequence"]);
+                    param.Status = Convert.ToInt16(data.Rows[counter]["Status"]);
+                    param.Return = Convert.ToInt16(data.Rows[counter]["Return"]);
+
+                    TransactionLog_Queue_Repository storedProcedure = new TransactionLog_Queue_Repository();
+                    await Task.Run(() => storedProcedure.Update(param));
+                }
+                Console.WriteLine("3. Successed to update data on Queue_TransactionLog table.");
             }
-
-            Console.WriteLine(Environment.NewLine + $"Updating SAPCustomerID {param.CustomerID} with sequence {param.Sequence} in TransactionLog...");
-        
-            TransactionLog_Queue_Repository storedProcedure = new TransactionLog_Queue_Repository();
-            await Task.Run(() => storedProcedure.Update(param));
-
-            Console.WriteLine(Environment.NewLine + "The data has been successfully updated." + Environment.NewLine);
-            Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("-", 50)) + Environment.NewLine);
+			catch (Exception)
+			{
+                Console.WriteLine("3. Failed to update data on Queue_TransactionLog table.");
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Net;
 
 namespace bsi_push_data_into_api
 {
-    internal class Usecase
+    internal class App_Handler
     {        
         SqlConnection sqlConn = null;
         string connString = ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
@@ -18,52 +18,28 @@ namespace bsi_push_data_into_api
 
             using (sqlConn = new SqlConnection(connString))
             {
-                Console.WriteLine(Environment.NewLine + "Retrieving data from TransactionLog..." + Environment.NewLine);
-                SqlCommand sqlCmd = new SqlCommand("dbo.sp_Queue_GroupingTransactionLogBySequence", sqlConn);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlConn.Open();
-
-                using (SqlDataReader sqlDR = await sqlCmd.ExecuteReaderAsync())
+                try
                 {
+                    SqlCommand sqlCmd = new SqlCommand("dbo.sp_Queue_GroupingTransactionLogBySequence", sqlConn);
+                    sqlCmd.CommandType = CommandType.StoredProcedure;
+                    sqlConn.Open();
+                    SqlDataReader sqlDR = await sqlCmd.ExecuteReaderAsync();
                     datas.Load(sqlDR);
-                    try
-                    {
-                        var response = await API_Request.Post(datas);
-                        await Queue_TransactionLog.Update(datas);
-                        await SFID_TransactionLog.Insert(datas, response);
-                    }
-                    catch (WebException ex)
-                    {
-                        Console.WriteLine($"Failed to post SAPCustomerID {sqlDR[1]} with sequence {sqlDR[2]}. {Environment.NewLine}");
+                    sqlConn.Close();
 
-                        if (ex.Status == WebExceptionStatus.ProtocolError)
-                        {
-                            var response = ex.Response as HttpWebResponse;
-                            if ((int)response.StatusCode == 401)
-                            {
-                                Console.WriteLine($"HTTP Status Code {(int)response.StatusCode}: Invalid or expired token. {Environment.NewLine}");
-                                Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("-", 50)) + Environment.NewLine);
-                            }
-                            else if ((int)response.StatusCode == 500)
-                            {
-                                Console.WriteLine($"HTTP Status Code {(int)response.StatusCode}: Internal server error. {Environment.NewLine}");
-                                Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("-", 50)) + Environment.NewLine);
-                            }
-                            else if ((int)response.StatusCode == 404)
-                            {
-                                Console.WriteLine($"HTTP Status Code {(int)response.StatusCode}: Not found. Invalid endpoint. {Environment.NewLine}");
-                                Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("-", 50)) + Environment.NewLine);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Other Exception");
-                        }
-                    }
+                    Console.WriteLine("1. Transaction Log Collected.");
+
+                    var response = await Middleware_TransactionLog_Usecase.Post(datas);
+                    await TransactionLog_Queue_Usecase.Update(response);
+                    await TransactionLog_Sfid_Usecase.Insert(response);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error while process >>>> ", ex.Message);
+
                 }
             }
-            Console.WriteLine(Environment.NewLine + "All valid data has been posted to endpoint.");
-            Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("=", 50)) + Environment.NewLine);
+            Console.WriteLine(Environment.NewLine + string.Concat(Enumerable.Repeat("=", 87)) + Environment.NewLine);
         }
     }
 }

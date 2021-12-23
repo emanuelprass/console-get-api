@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
 
 namespace bsi_push_data_into_api
@@ -19,6 +20,9 @@ namespace bsi_push_data_into_api
         {
 			try
 			{
+                Console.WriteLine(string.Concat(Enumerable.Repeat("=", 30)) + "QUEUE MANAGEMENT CRON JOB " + string.Concat(Enumerable.Repeat("=", 30)));
+                Console.WriteLine("Execution time : " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"));
+
                 App_Handler handler = new App_Handler();
                 handler.Execute();
             } 

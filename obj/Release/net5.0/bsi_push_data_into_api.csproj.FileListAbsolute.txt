@@ -35,7 +35,6 @@ D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\n
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.AssemblyInfoInputs.cache
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.AssemblyInfo.cs
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.csproj.CoreCompileInputs.cache
-D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.csproj.CopyComplete
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.dll
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\ref\bsi_push_data_into_api.dll
 D:\work-spaces\refactory\bsi-queue-transaction-log\console-get-api\obj\Release\net5.0\bsi_push_data_into_api.pdb
